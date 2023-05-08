@@ -65,5 +65,42 @@ class MoviesViewModel @Inject constructor(
         setEffect { Effect.Navigation.ToMovieDetails(movieId) }
     }
 
+/* private fun loadMoreMovies() = executeCatching(
+        withLoading = false,
+        block = {
+            // Validate first
+            val paging = moviesPaging ?: return@executeCatching
+            if (paging.page >= paging.pageCount) return@executeCatching // Loaded all pages
+
+            // Show loading more progress
+            setState { copy(isLoadingMore = true) }
+
+            // Load next contractors page
+            val response = getMoviesUseCase.loadMovies(
+                page = paging.page.plus(1),
+                pageSize = PAGE_SIZE
+            )
+
+            // Update current paging
+            contractorsPaging = response.meta?.pagination
+
+            // Create the new contractors list
+            val updatedContractors = viewState.value.movies.orEmpty().toMutableList()
+            updatedContractors.addAll(response.data.orEmpty())
+
+            // Update state
+            setState {
+                copy(
+                    movies = updatedContractors,
+                    isLoadingMore = false
+                )
+            }
+        },
+        onError = { _, _ ->
+            // Hide loading more progress
+            setState { copy(isLoadingMore = false) }
+        }
+    )*/
+
 
 }

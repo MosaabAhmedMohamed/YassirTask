@@ -6,12 +6,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.presentation.base.SIDE_EFFECTS_KEY
 import com.example.presentation.movies.contract.MoviesContract.Effect
 import com.example.presentation.movies.viewmodel.MoviesViewModel
+import com.example.yassirtask.features.destinations.MovieDetailsScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.onEach
 
 
-@Destination(start = true)
+@RootNavGraph(start = true)
+@Destination
 @Composable
 fun MoviesScreen(navigator: DestinationsNavigator,
                  viewModel: MoviesViewModel = hiltViewModel()
@@ -23,7 +26,7 @@ fun MoviesScreen(navigator: DestinationsNavigator,
             when (effect) {
                 is Effect.Navigation.ToMovieDetails -> {
 
-                    // navigator.navigate(ArticleDetailScreenDestination(project = effect.project))
+                     navigator.navigate(MovieDetailsScreenDestination(movieId = effect.movieId))
                 }
             }
         }.collect{}

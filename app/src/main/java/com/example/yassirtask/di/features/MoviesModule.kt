@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class ArticlesModule {
+class MoviesModule {
 
     @Provides
     fun provideMoviesService(retrofit: Retrofit): MoviesApi {
