@@ -1,6 +1,9 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("kotlin-parcelize")
+
 }
 
 android {
@@ -35,10 +38,25 @@ android {
 
 dependencies {
 
+    implementation(project(":core"))
+    implementation(project(":domain"))
+
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+
+    //Hilt
+    implementation(Hilt.HILT)
+    kapt(Hilt.HILT_ANDROID_COMPILER)
+
+    //Coroutines
+    implementation(Coroutines.COROUTINES_ANDROID)
+    implementation(Coroutines.COROUTINES_CORE)
+
+    implementation(Compose.COMPOSE_RUNTIME)
+
 }

@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":presentation"))
 
     implementation(kotlin("stdlib-jdk7"))
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_RULES)
@@ -91,7 +92,7 @@ dependencies {
     implementation(Navigation.DESTINATION)
     ksp(Navigation.DESTINATION_KSP)
 
-    // Navigation
+    // RETROFIT
     implementation(RETROFIT.RETROFIT)
     implementation(RETROFIT.RETROFIT_COROU_ADAPTER)
     implementation(RETROFIT.RETROFIT_JSON_CONVERTER)
