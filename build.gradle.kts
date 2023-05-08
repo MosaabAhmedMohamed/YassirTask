@@ -56,10 +56,13 @@ tasks.register("clean", Delete::class.java) {
     delete(rootProject.buildDir)
 }
 buildscript {
+    
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.42")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.44")
     }
+
+
 }
 
 tasks.withType<DependencyUpdatesTask> {

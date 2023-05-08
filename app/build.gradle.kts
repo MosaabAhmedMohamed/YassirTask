@@ -3,6 +3,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android")
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version("1.8.0-1.0.9")
     id("dagger.hilt.android.plugin")
 }
 
@@ -56,49 +58,58 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
     android.buildFeatures.compose = true
-
-    android.buildFeatures.viewBinding = true
 }
 
 dependencies {
 
-    /*implementation(project(":core"))
+    implementation(project(":core"))
     implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":presentation"))*/
+    implementation(project(":presentation"))
 
     implementation(kotlin("stdlib-jdk7"))
-    implementation(SupportLibs.ANDROIDX_APPCOMPAT)
-    implementation(SupportLibs.ANDROIDX_CONSTRAINT_LAYOUT)
-    implementation(SupportLibs.ANDROIDX_CORE_KTX)
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("com.google.android.material:material:1.6.1")
 
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_RULES)
     androidTestImplementation(AndroidTestingLib.ESPRESSO_CORE)
 
     //Compose
-    implementation("androidx.compose.ui:ui:1.2.1")
-    implementation("androidx.compose.material:material:1.2.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.activity:activity-compose:1.6.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation(Compose.COMPOSE_UI)
+    implementation(Compose.COMPOSE_MATERIAL)
+    implementation(Compose.COMPOSE_PREVIEW)
+    implementation(Compose.COMPOSE_ACTIVITY)
+    implementation(Compose.COMPOSE_VIEWMODEL)
+    implementation(AndroidKTX.ANDROIDX_KTX_RUNTIME)
+    implementation(Compose.COMPOSE_RUNTIME)
 
-    //Hilt
-    implementation("com.google.dagger:hilt-android:2.42")
-    kapt("com.google.dagger:hilt-android-compiler:2.42")
+    // Navigation
+    implementation(Navigation.HILT_NAVIGATION)
+    implementation(Navigation.NAVIGATION)
+    implementation(Navigation.DESTINATION)
+    ksp(Navigation.DESTINATION_KSP)
 
-    //GSON
+    // Navigation
+    implementation(RETROFIT.RETROFIT)
+    implementation(RETROFIT.RETROFIT_COROU_ADAPTER)
+    implementation(RETROFIT.RETROFIT_JSON_CONVERTER)
+    implementation(Logging.LOGGING)
     implementation(GSON.GSON)
 
-    //Navigation
-    implementation(NAVIGATION.NAVIGATION_FRAGMENT)
-    implementation(NAVIGATION.NAVIGATION_UI)
+
+    //Coroutines
+    implementation(Coroutines.COROUTINES_ANDROID)
+    implementation(Coroutines.COROUTINES_CORE)
+
+    //Hilt
+    implementation(Hilt.HILT)
+    kapt(Hilt.HILT_ANDROID_COMPILER)
+    kapt(Hilt.HILT_COMPLIER)
+
+    implementation("io.coil-kt:coil-compose:2.2.0")
+
+
 
 }
