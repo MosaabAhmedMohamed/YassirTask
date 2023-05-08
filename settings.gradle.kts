@@ -16,6 +16,5 @@ pluginManagement {
     }
 }
 rootProject.name = "Yassir Task"
-include(":app")
+include(":app",":core",":presentation",":domain",":data")
 
-//,":core",":presentation",":domain",":data"
