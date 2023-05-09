@@ -1,5 +1,7 @@
 package com.example.presentation.moviedetails.viewmodel
 
+import android.util.Log
+import com.example.core.util.DispatcherProvider
 import com.example.domain.moviedetails.usecase.GetMovieDetailsUseCase
 import com.example.presentation.base.BaseViewModel
 import com.example.presentation.base.IGlobalState
@@ -9,15 +11,16 @@ import com.example.presentation.moviedetails.contract.MovieDetailsContract.State
 import com.example.presentation.moviedetails.model.mapper.mapToUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
-
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
 import javax.inject.Inject
-
 
 @HiltViewModel
 class MovieDetailsViewModel @Inject constructor(
     globalState: IGlobalState,
-    private val getMovieDetailsUseCase: GetMovieDetailsUseCase
-) : BaseViewModel<Event,
+    private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
+    private val dispatchers: DispatcherProvider,
+    ) : BaseViewModel<Event,
         State,
         Effect>(globalState) {
 
@@ -35,6 +38,8 @@ class MovieDetailsViewModel @Inject constructor(
         if (movieId == null) return@executeCatching
 
          getMovieDetailsUseCase.loadMovieDetails(movieId)
+             .onCompletion { Log.d("TestTAG", ":${it} ") }
+             .flowOn(dispatchers.io)
              .collectLatest {
                  // Update project in the state
                  setState {

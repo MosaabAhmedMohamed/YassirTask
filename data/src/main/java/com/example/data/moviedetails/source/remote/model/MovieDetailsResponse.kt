@@ -20,7 +20,7 @@ data class MovieDetailsResponse(
 	val backdropPath: String? = null,
 
 	@field:SerializedName("revenue")
-	val revenue: Int? = null,
+	val revenue: Long? = null,
 
 	@field:SerializedName("genres")
 	val genres: List<GenresItem>? = null,
@@ -32,13 +32,13 @@ data class MovieDetailsResponse(
 	val productionCountries: List<ProductionCountriesItem?>? = null,
 
 	@field:SerializedName("id")
-	val id: Int? = null,
+	val id: Long,
 
 	@field:SerializedName("vote_count")
-	val voteCount: Int? = null,
+	val voteCount: Long? = null,
 
 	@field:SerializedName("budget")
-	val budget: Int? = null,
+	val budget: Long? = null,
 
 	@field:SerializedName("overview")
 	val overview: String? = null,
@@ -47,7 +47,7 @@ data class MovieDetailsResponse(
 	val originalTitle: String? = null,
 
 	@field:SerializedName("runtime")
-	val runtime: Int? = null,
+	val runtime: Long? = null,
 
 	@field:SerializedName("poster_path")
 	val posterPath: String? = null,
@@ -62,7 +62,7 @@ data class MovieDetailsResponse(
 	val releaseDate: String? = null,
 
 	@field:SerializedName("vote_average")
-	val voteAverage: Any? = null,
+	val voteAverage: Float? = null,
 
 	@field:SerializedName("belongs_to_collection")
 	val belongsToCollection: BelongsToCollection? = null,

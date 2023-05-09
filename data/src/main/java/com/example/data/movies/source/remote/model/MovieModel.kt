@@ -1,19 +1,37 @@
 package com.example.data.movies.source.remote.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+
+@Entity
 data class MovieModel(
+    @ColumnInfo(name = "overview")
     val overview: String? = null,
+    @ColumnInfo(name = "originalLanguage")
     val originalLanguage: String? = null,
+    @ColumnInfo(name = "originalTitle")
     val originalTitle: String? = null,
+    @ColumnInfo(name = "video")
     val video: Boolean? = null,
+    @ColumnInfo(name = "title")
     val title: String? = null,
-    val genreIds: List<Int?>? = null,
+    @ColumnInfo(name = "posterPath")
     val posterPath: String? = null,
+    @ColumnInfo(name = "backdropPath")
     val backdropPath: String? = null,
+    @ColumnInfo(name = "releaseDate")
     val releaseDate: String? = null,
-    val popularity: Any? = null,
-    val voteAverage: Any? = null,
-    val id: Int? = null,
+    @ColumnInfo(name = "voteAverage")
+    val voteAverage: Long? = null,
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "id")
+    val id: Int,
+    @ColumnInfo(name = "adult")
     val adult: Boolean? = null,
-    val voteCount: Int? = null
+    @ColumnInfo(name = "voteCount")
+    val voteCount: Int? = null,
+    @ColumnInfo(name = "page")
+    var page: Int,
 )

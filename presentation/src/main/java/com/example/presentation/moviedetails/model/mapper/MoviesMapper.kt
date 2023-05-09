@@ -1,8 +1,6 @@
 package com.example.presentation.moviedetails.model.mapper
 
-import com.example.domain.moviedetails.model.GenresItemDomain
 import com.example.domain.moviedetails.model.MovieDetailsDomain
-import com.example.presentation.moviedetails.model.GenresItemUiModel
 import com.example.presentation.moviedetails.model.MovieDetailsUiModel
 
 
@@ -28,7 +26,7 @@ fun MovieDetailsDomain.mapToUi(): MovieDetailsUiModel {
     )
 }
 
-fun List<GenresItemDomain>?.mapToUi(): List<GenresItemUiModel> {
-    return this?.map { GenresItemUiModel(it.name,it.id) }?: emptyList()
+fun List<String>?.mapToUi(): List<String> {
+    return this?.map { it }?: emptyList()
 
 }

@@ -31,6 +31,11 @@ fun MoviesScreen(navigator: DestinationsNavigator,
             }
         }.collect{}
     }
+
+    LaunchedEffect(key1 = SIDE_EFFECTS_KEY){
+        viewModel.loadMovies()
+    }
+
     // Render movies content
     MoviesContentContainer(
         state = viewModel.viewState.value,

@@ -59,4 +59,6 @@ dependencies {
 
     implementation(Compose.COMPOSE_RUNTIME)
 
+    //Paging 3
+    implementation("androidx.paging:paging-runtime:3.1.1")
 }

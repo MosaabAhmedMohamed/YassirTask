@@ -1,14 +1,12 @@
 package com.example.yassirtask.di.module
 
 import com.example.core.util.APIConst
-import com.example.core.util.APIConst.Companion.API_KEY
+import com.example.core.util.AuthenticationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,6 +19,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
+    @Singleton
     @Provides
     internal fun provideHttpClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
@@ -50,11 +49,3 @@ object NetworkModule {
 
 }
 
-class AuthenticationInterceptor() : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        var original = chain.request()
-        val url = original.url.newBuilder().addQueryParameter("api_key", API_KEY).build()
-        original = original.newBuilder().url(url).build()
-        return chain.proceed(original)
-    }
-}

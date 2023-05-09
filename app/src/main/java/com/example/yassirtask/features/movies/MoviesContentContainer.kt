@@ -6,13 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.movies.contract.MoviesContract.State
 import com.example.presentation.movies.contract.MoviesContract.Event
 import com.example.yassirtask.theme.YassirTheme
 
-
 @Composable
-fun MoviesContentContainer (
+fun MoviesContentContainer(
     state: State,
     onEvent: (event: Event) -> Unit
 ) {
@@ -25,7 +25,7 @@ fun MoviesContentContainer (
             .padding(horizontal = horizontalPadding)
 
     ) {
-        // My cozo projects text
+        // My Movies text
         Text(
             text = "my_projects",
             style = YassirTheme.typography.mencoBold18,
@@ -36,42 +36,39 @@ fun MoviesContentContainer (
         // Space
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Contractors list
-        MoviesList(
-            movies = state.movies,
-            onItemClick = { index,item->
-                onEvent(Event.OnItemClick(index))
-            },
-            onReachedListEnd = {
-                onEvent(Event.ReachedListEnd)
-            },
-            isLoadingMore = state.isLoadingMore,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            prefixContent = {
-                // Subtitle text
-                Column {
-                    Text(
-                        text = "test 1 ",
-                        style = YassirTheme.typography.poppinsSemiBold16,
-                        color = YassirTheme.colors.charcoalGrey,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .padding(top = 28.dp)
-                            .fillMaxWidth()
-                    )
+        if (state.movies != null)
+        // Movies list
+            MoviesList(
+                movies = state.movies!!.collectAsLazyPagingItems(),
+                onItemClick = { index, item ->
+                    onEvent(Event.OnItemClick(item))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                prefixContent = {
+                    // Subtitle text
+                    Column {
+                        Text(
+                            text = "test 1 ",
+                            style = YassirTheme.typography.poppinsSemiBold16,
+                            color = YassirTheme.colors.charcoalGrey,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .padding(top = 28.dp)
+                                .fillMaxWidth()
+                        )
 
-                    Text(
-                        text = "test 2 ",
-                        style = YassirTheme.typography.poppinsRegular14,
-                        color = YassirTheme.colors.charcoalGrey,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
+                        Text(
+                            text = "test 2 ",
+                            style = YassirTheme.typography.poppinsRegular14,
+                            color = YassirTheme.colors.charcoalGrey,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
+                    }
                 }
-            }
-        )
+            )
     }
 }

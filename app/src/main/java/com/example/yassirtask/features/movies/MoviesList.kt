@@ -4,20 +4,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import com.example.presentation.movies.model.MovieUiModel
-import com.example.yassirtask.composables.loadingMoreIndicator.LoadingMoreIndicator
 
 @Composable
 fun MoviesList(
-    movies: List<MovieUiModel>?,
+    movies: LazyPagingItems<MovieUiModel>,
     onItemClick: (Int, MovieUiModel) -> Unit,
-    onReachedListEnd: () -> Unit,
-    isLoadingMore: Boolean = false,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     prefixContent: (@Composable () -> Unit)? = null,
     modifier: Modifier = Modifier
@@ -32,32 +29,18 @@ fun MoviesList(
             prefixContent()
         }
 
-        // Render contractor items
-        movies?.let {
-            itemsIndexed(
-                items = movies,
-                key = { index, _ -> index }
-            ) { index, item ->
-                // Render contractor item
+        items(
+            count = movies.itemCount
+        ) { index ->
+            val item = movies[index]
+            item?.let {
                 MoviesListItem(
-                    movie = item,
+                    movie = it,
                     onClick = {
                         onItemClick.invoke(index, item)
                     }
                 )
-
-                // Notify reached list end callback if it's list end
-                if (index == movies.lastIndex) {
-                    onReachedListEnd.invoke()
-                }
             }
-        }
-
-
-
-        // Render loading more indicator if required
-        if (isLoadingMore) item {
-            LoadingMoreIndicator()
         }
     }
 }

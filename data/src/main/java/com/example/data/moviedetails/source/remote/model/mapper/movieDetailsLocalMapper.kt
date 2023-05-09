@@ -2,9 +2,7 @@ package com.example.data.moviedetails.source.remote.model.mapper
 
 import com.example.data.moviedetails.source.remote.model.GenresItem
 import com.example.data.moviedetails.source.remote.model.MovieDetailsResponse
-import com.example.domain.moviedetails.model.GenresItemDomain
 import com.example.domain.moviedetails.model.MovieDetailsDomain
-
 
 fun MovieDetailsResponse.mapToDomain(): MovieDetailsDomain {
     return MovieDetailsDomain(
@@ -28,7 +26,6 @@ fun MovieDetailsResponse.mapToDomain(): MovieDetailsDomain {
     )
 }
 
-fun List<GenresItem>?.mapToDomain(): List<GenresItemDomain> {
-    return this?.map { GenresItemDomain(it.name,it.id) }?: emptyList()
-
+fun List<GenresItem>?.mapToDomain(): List<String> {
+    return this?.map { it.name?:"" }?: emptyList()
 }

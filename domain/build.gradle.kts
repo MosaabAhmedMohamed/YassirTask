@@ -48,4 +48,7 @@ dependencies {
     //Hilt
     implementation(Hilt.HILT)
     kapt(Hilt.HILT_ANDROID_COMPILER)
+
+    //Paging 3
+    implementation("androidx.paging:paging-runtime:3.1.1")
 }

@@ -1,6 +1,8 @@
 package com.example.yassirtask.di.features
 
 import com.example.data.moviedetails.repository.MovieDetailsRepositoryImpl
+import com.example.data.moviedetails.source.local.MovieDetailsLocalDataSource
+import com.example.data.moviedetails.source.local.dao.MovieDetailsDao
 import com.example.data.moviedetails.source.remote.api.MovieDetailsApi
 import com.example.domain.moviedetails.repository.MovieDetailsRepository
 import dagger.Module
@@ -19,8 +21,16 @@ class MovieDetailsModule {
     }
 
     @Provides
+    fun provideMovieDetailsLocalDataSource(
+        movieDetailsDao: MovieDetailsDao
+    ): MovieDetailsLocalDataSource {
+        return MovieDetailsLocalDataSource(movieDetailsDao)
+    }
+
+    @Provides
     fun provideMoviesRepository(
-        movieDetailsApi: MovieDetailsApi
+        movieDetailsApi: MovieDetailsApi,
+        movieDetailsLocalDataSource: MovieDetailsLocalDataSource
     ): MovieDetailsRepository =
-        MovieDetailsRepositoryImpl(movieDetailsApi)
+        MovieDetailsRepositoryImpl(movieDetailsApi,movieDetailsLocalDataSource)
 }
