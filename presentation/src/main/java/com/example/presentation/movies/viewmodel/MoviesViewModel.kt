@@ -1,6 +1,5 @@
 package com.example.presentation.movies.viewmodel
 
-import android.util.Log
 import androidx.paging.map
 import com.example.core.util.DispatcherProvider
 import com.example.domain.movies.usecase.GetMoviesUseCase
@@ -26,15 +25,13 @@ class MoviesViewModel @Inject constructor(
        Effect>(globalState)  {
 
     suspend fun loadMovies() {
-        val flow = getMoviesUseCase.loadMovies()
-            .onCompletion {
-                Log.d("TestTAG", ":${it} ")
-            }
-            // .onStart { uiState.value = ArticlesViewState.Loading }
-            .flowOn(dispatchers.io)
-            .map { it.map { it.mapToUi() } }
+        executeCatching({
+            val flow = getMoviesUseCase.loadMovies()
+                .flowOn(dispatchers.io)
+                .map { it.map { it.mapToUi() } }
 
-        setState { copy(movies = flow ) }
+            setState { copy(movies = flow ) }
+        })
     }
 
     override fun setInitialState() = State()

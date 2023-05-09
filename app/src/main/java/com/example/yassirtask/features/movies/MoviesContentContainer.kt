@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.movies.contract.MoviesContract.State
 import com.example.presentation.movies.contract.MoviesContract.Event
+import com.example.yassirtask.R
 import com.example.yassirtask.theme.YassirTheme
 
 @Composable
@@ -27,7 +29,7 @@ fun MoviesContentContainer(
     ) {
         // My Movies text
         Text(
-            text = "my_projects",
+            text =  stringResource(R.string.app_name),
             style = YassirTheme.typography.mencoBold18,
             color = YassirTheme.colors.black,
             modifier = Modifier.padding(vertical = 16.dp)
