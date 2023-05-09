@@ -49,7 +49,7 @@ fun MoviesListItem(
 
             // Contractor image
             GrayRemoteImage(
-                imageUrl = movie.backdropPath,
+                imageUrl = movie.posterPath,
                 description = movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

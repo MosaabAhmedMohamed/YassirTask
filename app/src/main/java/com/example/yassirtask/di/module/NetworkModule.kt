@@ -1,5 +1,6 @@
 package com.example.yassirtask.di.module
 
+import com.example.core.BuildConfig
 import com.example.core.util.APIConst
 import com.example.core.util.AuthenticationInterceptor
 import dagger.Module
@@ -42,7 +43,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(APIConst.API_BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

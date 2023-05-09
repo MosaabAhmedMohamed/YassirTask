@@ -3,6 +3,7 @@ package com.example.data.movies.source.remote.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 
 @Entity
@@ -17,6 +18,7 @@ data class MovieModel(
     val video: Boolean? = null,
     @ColumnInfo(name = "title")
     val title: String? = null,
+    @SerializedName("poster_path")
     @ColumnInfo(name = "posterPath")
     val posterPath: String? = null,
     @ColumnInfo(name = "backdropPath")

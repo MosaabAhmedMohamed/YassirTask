@@ -5,7 +5,7 @@ data class MovieDetailsUiModel(
     val title: String? = null,
     val backdropPath: String? = null,
     val revenue: Long? = null,
-    val genres: List<String?>? = null,
+    val genres: List<String>? = null,
     val id: Long? = null,
     val voteCount: Long? = null,
     val budget: Long? = null,

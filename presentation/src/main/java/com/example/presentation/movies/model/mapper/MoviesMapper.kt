@@ -1,5 +1,6 @@
 package com.example.presentation.movies.model.mapper
 
+import com.example.core.BuildConfig
 import com.example.domain.movies.model.MovieDomainModel
 import com.example.presentation.movies.model.MovieUiModel
 
@@ -10,7 +11,7 @@ fun MovieDomainModel.mapToUi(): MovieUiModel {
         originalTitle = originalTitle,
         video = video,
         title = title,
-        posterPath = posterPath,
+        posterPath = BuildConfig.IMAGE_BASE_URL.plus(posterPath),
         backdropPath = backdropPath,
         releaseDate = releaseDate,
         voteAverage = voteAverage,

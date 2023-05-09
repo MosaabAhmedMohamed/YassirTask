@@ -8,6 +8,8 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+
+
 android {
     compileSdkVersion(Sdk.COMPILE_SDK_VERSION)
 
@@ -27,6 +29,8 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+
 
     buildTypes {
         getByName("debug") {

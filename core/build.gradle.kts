@@ -11,6 +11,10 @@ android {
         minSdk = 21
         targetSdk = 32
 
+        buildConfigField("String", "API_TOKEN", "\"c9856d0cb57c3f14bf75bdc6c063b8f3\"")
+        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+        buildConfigField("String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w200/\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
