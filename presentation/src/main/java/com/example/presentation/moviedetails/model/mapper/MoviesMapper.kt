@@ -7,7 +7,6 @@ import com.example.presentation.moviedetails.model.MovieDetailsUiModel
 
 fun MovieDetailsDomain.mapToUi(): MovieDetailsUiModel {
     return MovieDetailsUiModel(
-        originalLanguage = originalLanguage,
         title = title,
         backdropPath = backdropPath,
         revenue = revenue,

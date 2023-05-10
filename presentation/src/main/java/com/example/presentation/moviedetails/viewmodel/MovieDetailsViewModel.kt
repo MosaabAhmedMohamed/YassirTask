@@ -20,16 +20,12 @@ class MovieDetailsViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider,
     ) : BaseViewModel<Event,
         State,
-        Effect>(globalState) {
+        Effect>(globalState,dispatchers) {
 
     private var isInitialized = false
 
-    init {
-
-    }
-
     fun init(
-        movieId: Int?
+        movieId: Long?
     ) = executeCatching({
         // Validate
         if (isInitialized) return@executeCatching

@@ -10,7 +10,7 @@ data class MovieDomainModel(
     val backdropPath: String? = null,
     val releaseDate: String? = null,
     val voteAverage: Long? = null,
-    val id: Int? = null,
+    val id: Long? = null,
     val adult: Boolean? = null,
     val voteCount: Int? = null
 )

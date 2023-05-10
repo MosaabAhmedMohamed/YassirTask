@@ -1,7 +1,6 @@
 package com.example.domain.moviedetails.model
 
 data class MovieDetailsDomain(
-    val originalLanguage: String? = null,
     val title: String? = null,
     val backdropPath: String? = null,
     val revenue: Long? = null,

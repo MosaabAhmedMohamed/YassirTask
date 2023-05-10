@@ -9,7 +9,7 @@ class MovieDetailsLocalDataSource @Inject constructor(
     private val movieDetailsDao: MovieDetailsDao
 ) {
 
-    suspend fun getMovie(id: Int): MovieDetailsLocal? {
+    suspend fun getMovie(id: Long): MovieDetailsLocal? {
         return  try {
             movieDetailsDao.getMovie(id)
         }catch (error: IOException){

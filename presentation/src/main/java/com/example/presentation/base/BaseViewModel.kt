@@ -5,16 +5,23 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.util.AppException
+import com.example.core.util.DispatcherProvider
+import com.example.core.util.NetworkErrorMapper
 import com.example.presentation.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.apache.http.conn.ConnectTimeoutException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 
 abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : ViewSideEffect>(
-    protected val globalState: IGlobalState
+    protected val globalState: IGlobalState,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
 
     abstract fun setInitialState(): UiState
@@ -35,7 +42,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
     }
 
     private fun subscribeToEvents() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             _event.collect {
                 handleEvents(it)
             }
@@ -43,7 +50,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
     }
 
     fun setEvent(event: Event) {
-        viewModelScope.launch { _event.emit(event) }
+        viewModelScope.launch(dispatchers.io) { _event.emit(event) }
     }
 
     protected fun setState(reducer: UiState.() -> UiState) {
@@ -53,7 +60,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
 
     protected fun setEffect(builder: () -> Effect) {
         val effectValue = builder()
-        viewModelScope.launch { _effect.send(effectValue) }
+        viewModelScope.launch(dispatchers.io) { _effect.send(effectValue) }
     }
 
     fun <T> executeCatching(
@@ -61,7 +68,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
         onError: ((Throwable, String) -> Unit)? = null,
         withLoading: Boolean = true
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             try {
                 if (withLoading) globalState.loading(true)
                 block.invoke()
@@ -73,7 +80,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
             } catch (e: kotlinx.coroutines.CancellationException) {
                 onError?.invoke(e, "")
             } catch (throwable: Throwable) {
-              /*  if (BuildConfig.DEBUG) throwable.printStackTrace()
+                if (BuildConfig.DEBUG) throwable.printStackTrace()
                 val errorMessage = when (throwable) {
                     is AppException -> {
                         throwable.errorMessage
@@ -83,16 +90,20 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
                     }
                     is SocketTimeoutException,
                     is java.net.SocketTimeoutException,
-                    is HttpRequestTimeoutException,
+                        // is HttpRequestTimeoutException,
                     is ConnectTimeoutException -> {
                         "Looks like the server is taking too long to respond, please try again later."
                     }
                     else -> {
                         NetworkErrorMapper().mapThrowable(throwable).errorMessage
                     }
-                }*/
-              /*  globalState.error(errorMessage, withLoading)
-                onError?.invoke(throwable, errorMessage)*/
+                }
+                globalState.error(errorMessage, withLoading)
+                onError?.invoke(throwable, errorMessage)
+            } catch (e: Exception) {
+                val errorMessage = NetworkErrorMapper().mapThrowable(e).errorMessage
+                globalState.error(errorMessage, withLoading)
+                onError?.invoke(e, errorMessage)
             }
         }
     }
@@ -103,7 +114,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
         onComplete: (() -> Unit)? = null,
         scope: CoroutineScope = viewModelScope
     ) {
-        scope.launch {
+        scope.launch(dispatchers.io) {
             try {
                 block.invoke()
             } catch (throwable: Throwable) {

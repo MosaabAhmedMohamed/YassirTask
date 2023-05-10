@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieDetailsRepository {
 
-    suspend fun loadMovieDetails(movieId: Int): Flow<MovieDetailsDomain>
+    suspend fun loadMovieDetails(movieId: Long): Flow<MovieDetailsDomain>
 
 }
