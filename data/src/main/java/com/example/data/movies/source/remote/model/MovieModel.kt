@@ -29,7 +29,7 @@ data class MovieModel(
     val voteAverage: Long? = null,
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "adult")
     val adult: Boolean? = null,
     @ColumnInfo(name = "voteCount")

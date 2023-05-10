@@ -1,7 +1,6 @@
 package com.example.presentation.moviedetails.model
 
 data class MovieDetailsUiModel(
-    val originalLanguage: String? = null,
     val title: String? = null,
     val backdropPath: String? = null,
     val revenue: Long? = null,

@@ -25,7 +25,7 @@ class MoviesContract {
 
     sealed class Effect : ViewSideEffect {
         sealed class Navigation : Effect() {
-            data class ToMovieDetails(val movieId: Int) : Effect()
+            data class ToMovieDetails(val movieId: Long) : Effect()
         }
     }
 

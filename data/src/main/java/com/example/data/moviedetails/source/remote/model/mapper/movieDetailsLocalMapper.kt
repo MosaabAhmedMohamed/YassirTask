@@ -6,7 +6,6 @@ import com.example.domain.moviedetails.model.MovieDetailsDomain
 
 fun MovieDetailsResponse.mapToDomain(): MovieDetailsDomain {
     return MovieDetailsDomain(
-        originalLanguage = originalLanguage,
         title = title,
         backdropPath = backdropPath,
         revenue = revenue,

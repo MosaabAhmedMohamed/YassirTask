@@ -16,7 +16,7 @@ class MovieDetailsRepositoryImpl @Inject constructor(
 
 
     @SuppressLint("SuspiciousIndentation")
-    override suspend fun loadMovieDetails(movieId: Int) = flow {
+    override suspend fun loadMovieDetails(movieId: Long) = flow {
         val localMovie = movieDetailsLocalDataSource.getMovie(movieId)
 
         localMovie?.let {

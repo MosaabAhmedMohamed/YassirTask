@@ -11,7 +11,7 @@ class RemoteKeysLocalDataSource @Inject constructor(private val dao: RemoteKeysD
 
     suspend fun insertAll(remoteKey: List<RemoteKeys>) = dao.insertAll(remoteKey)
 
-    suspend fun getRemoteKeyByMovieID(id: Int) = dao.getRemoteKeyByMovieID(id)
+    suspend fun getRemoteKeyByMovieID(id: Long) = dao.getRemoteKeyByMovieID(id)
 
     suspend fun clearRemoteKeys() = dao.clearRemoteKeys()
 

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.onEach
 @Composable
 fun MovieDetailsScreen(
     navigator: DestinationsNavigator,
-    movieId: Int? = null,
+    movieId: Long? = null,
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()

@@ -22,7 +22,7 @@ class MoviesViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider,
     ) : BaseViewModel<Event,
        State,
-       Effect>(globalState)  {
+       Effect>(globalState,dispatchers)  {
 
     suspend fun loadMovies() {
         executeCatching({

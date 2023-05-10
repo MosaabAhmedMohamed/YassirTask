@@ -13,7 +13,7 @@ interface MovieDetailsDao {
     suspend fun insertMovie(movie: MovieDetailsLocal)
 
     @Query("select * from MovieDetailsLocal WHERE id = :id")
-    suspend fun getMovie(id: Int): MovieDetailsLocal?
+    suspend fun getMovie(id: Long): MovieDetailsLocal?
 
     @Query("delete from MovieDetailsLocal")
     suspend fun deleteAllMovies()
