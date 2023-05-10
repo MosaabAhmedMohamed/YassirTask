@@ -5,6 +5,7 @@ import com.example.core.util.DispatcherProvider
 import com.example.data.db.YassirTaskDatabase
 import com.example.data.movies.repository.MoviesRepositoryImpl
 import com.example.data.movies.source.local.MoviesLocalDataSource
+import com.example.data.movies.source.local.RemoteKeysLocalDataSource
 import com.example.data.movies.source.local.dao.MoviesDao
 import com.example.data.movies.source.local.dao.RemoteKeysDao
 import com.example.data.movies.source.remote.MoviesRemoteDataSource
@@ -27,6 +28,12 @@ class MoviesModule {
         MoviesLocalDataSource(db.moviesDao())
 
     @Provides
+    fun provideRemoteKeysLocalDataSource(
+        db: YassirTaskDatabase
+    ): RemoteKeysLocalDataSource =
+        RemoteKeysLocalDataSource(db.remoteKeysDao())
+
+    @Provides
     fun provideMoviesService(retrofit: Retrofit): MoviesApi {
         return retrofit.create(MoviesApi::class.java)
     }
@@ -34,15 +41,13 @@ class MoviesModule {
     @Provides
     fun provideMoviesRemoteDataSource(
         moviesApi: MoviesApi,
-        moviesDao: MoviesDao,
-        remoteKeysDao: RemoteKeysDao,
-        dispatchers: DispatcherProvider
+        moviesLocalDataSource: MoviesLocalDataSource,
+        remoteKeysLocalDataSource: RemoteKeysLocalDataSource,
     ): MoviesRemoteDataSource =
         MoviesRemoteDataSource(
             moviesApi,
-            moviesDao,
-            remoteKeysDao,
-            dispatchers
+            moviesLocalDataSource,
+            remoteKeysLocalDataSource,
         )
 
     @Provides
