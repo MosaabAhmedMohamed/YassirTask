@@ -1,6 +1,7 @@
 package com.example.domain
 
 import com.example.domain.moviedetails.model.MovieDetailsDomain
+import com.example.domain.movies.model.MovieDomainModel
 
 object DataFixtures {
 
@@ -18,4 +19,6 @@ object DataFixtures {
         tagline = "tagline",
     )
 
+
+    internal fun getMoviesList() = listOf(MovieDomainModel())
 }
