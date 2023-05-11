@@ -23,6 +23,7 @@ data class MovieModel(
     val posterPath: String? = null,
     @ColumnInfo(name = "backdropPath")
     val backdropPath: String? = null,
+    @SerializedName("release_date")
     @ColumnInfo(name = "releaseDate")
     val releaseDate: String? = null,
     @ColumnInfo(name = "voteAverage")
