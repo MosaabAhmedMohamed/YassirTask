@@ -3,10 +3,9 @@ package com.example.yassirtask.features.movies
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +52,7 @@ fun MoviesListItem(
                 description = movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .padding(end = YassirTheme.spacing.m)
+                    .padding(horizontal = YassirTheme.spacing.m)
                     .size(70.dp)
                     .clip(SmallRoundedCornerImage)
             )
@@ -74,7 +73,7 @@ fun MoviesListItem(
                     )
                 }
 
-                // Address text
+                // overview text
                 movie.overview?.let {
                     Text(
                         text = it,
@@ -86,19 +85,21 @@ fun MoviesListItem(
                 }
 
 
-                // Services text
-                Text(
-                    text = "servicesStr",
-                    style = YassirTheme.typography.poppinsRegular14,
-                    color = YassirTheme.colors.black,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                // releaseDate text
+                movie.releaseDate?.let {
+                    Text(
+                        text = it,
+                        style = YassirTheme.typography.poppinsRegular14,
+                        color = YassirTheme.colors.black,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
 
             // Arrow icon
             Image(
-                imageVector = Icons.Filled.AccountBox,
+                imageVector = Icons.Filled.ArrowForward,
                 contentDescription = null,
                 colorFilter = ColorFilter.tint(YassirTheme.colors.stroke),
                 modifier = Modifier
@@ -106,22 +107,22 @@ fun MoviesListItem(
                     .padding(end = YassirTheme.spacing.m),
             )
         }
+
+
+
     }
 }
 
 @Preview
 @Composable
 fun MoviesListItemPreview() {
-    /* ContractorListItem(
-         contractor = ContractorListItemUIModel(
+    MoviesListItem(
+        movie = MovieUiModel(
              id = 0,
              title = "Contractor Contracting LLC.",
-             address = "Los Angeles, CA",
-             firstService = "Roofing",
-             servicesCount = 5,
-             imageUrl = null
+             overview = "Los Angeles, CA",
+             releaseDate = "2023",
          ),
          onClick = {},
-         onChecked = {}
-     )*/
+     )
 }

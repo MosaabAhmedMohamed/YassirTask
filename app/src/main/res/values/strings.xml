@@ -4,5 +4,9 @@
     <string name="error">Error</string>
     <string name="got_it">Got it</string>
     <string name="success">Success</string>
+    <string name="refresh_loading">Refresh Loading</string>
+    <string name="refresh">Refresh</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="trending_movies_desc">List of trending movies</string>
 
 </resources>
