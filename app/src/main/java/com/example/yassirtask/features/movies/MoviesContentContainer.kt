@@ -27,50 +27,42 @@ fun MoviesContentContainer(
             .padding(horizontal = horizontalPadding)
 
     ) {
-        // My Movies text
-        Text(
-            text =  stringResource(R.string.app_name),
-            style = YassirTheme.typography.mencoBold18,
-            color = YassirTheme.colors.black,
-            modifier = Modifier.padding(vertical = 16.dp)
-        )
 
         // Space
         Spacer(modifier = Modifier.height(16.dp))
 
-        if (state.movies != null)
         // Movies list
-            MoviesList(
-                movies = state.movies!!.collectAsLazyPagingItems(),
-                onItemClick = { index, item ->
-                    onEvent(Event.OnItemClick(item))
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                prefixContent = {
-                    // Subtitle text
-                    Column {
-                        Text(
-                            text = "test 1 ",
-                            style = YassirTheme.typography.poppinsSemiBold16,
-                            color = YassirTheme.colors.charcoalGrey,
-                            textAlign = TextAlign.Start,
-                            modifier = Modifier
-                                .padding(top = 28.dp)
-                                .fillMaxWidth()
-                        )
+        MoviesList(
+            movies = state.movies?.collectAsLazyPagingItems(),
+            onItemClick = { _, item ->
+                onEvent(Event.OnItemClick(item))
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            prefixContent = {
+                // Subtitle text
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.trending_movies),
+                        style = YassirTheme.typography.poppinsSemiBold16,
+                        color = YassirTheme.colors.charcoalGrey,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier
+                            .padding(top = 4.dp)
+                            .fillMaxWidth()
+                    )
 
-                        Text(
-                            text = "test 2 ",
-                            style = YassirTheme.typography.poppinsRegular14,
-                            color = YassirTheme.colors.charcoalGrey,
-                            textAlign = TextAlign.Start,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        )
-                    }
+                    Text(
+                        text = stringResource(id = R.string.trending_movies_desc),
+                        style = YassirTheme.typography.poppinsRegular14,
+                        color = YassirTheme.colors.charcoalGrey,
+                        textAlign = TextAlign.Start,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
                 }
-            )
+            }
+        )
     }
 }
