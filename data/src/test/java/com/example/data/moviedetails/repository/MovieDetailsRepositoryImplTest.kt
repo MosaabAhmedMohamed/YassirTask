@@ -16,10 +16,11 @@ import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
-internal class MovieDetailsRepositoryImplTest{
+internal class MovieDetailsRepositoryImplTest {
 
     @Mock
     internal lateinit var movieApi: MovieDetailsApi
+
     @Mock
     internal lateinit var movieLocalDS: MovieDetailsLocalDataSource
 
@@ -33,25 +34,25 @@ internal class MovieDetailsRepositoryImplTest{
         movieLocalDS = org.mockito.kotlin.mock {
         }
 
-        cut = MovieDetailsRepositoryImpl(movieApi,movieLocalDS)
+        cut = MovieDetailsRepositoryImpl(movieApi, movieLocalDS)
     }
 
-  /*  @Test
-    fun `getMovie verify local data source is called`() {
-        // given
-        runBlocking {
-            Mockito.`when`(movieLocalDS.getMovie(DataFixtures.getMovie().id))
-                .thenAnswer { DataFixtures.getMovie() }
-        }
+    /*  @Test
+      fun `getMovie verify local data source is called`() {
+          // given
+          runBlocking {
+              Mockito.`when`(movieLocalDS.getMovie(DataFixtures.getMovie().id))
+                  .thenAnswer { DataFixtures.getMovie() }
+          }
 
-        // when
-        runBlocking { cut.loadMovieDetails(DataFixtures.getMovie().id) }
+          // when
+          runBlocking { cut.loadMovieDetails(DataFixtures.getMovie().id) }
 
-        // verify
-        runBlocking {
-            verify(movieLocalDS, times(1)).getMovie(DataFixtures.getMovie().id)
-        }
-    }*/
+          // verify
+          runBlocking {
+              verify(movieLocalDS, times(1)).getMovie(DataFixtures.getMovie().id)
+          }
+      }*/
 
     @Test
     fun `getMovie local return null verify API called`() {
@@ -62,13 +63,11 @@ internal class MovieDetailsRepositoryImplTest{
 
             Mockito.`when`(movieApi.fetchMovieDetails(DataFixtures.getMovie().id))
                 .thenAnswer { MovieDetailsResponse(id = DataFixtures.getMovie().id) }
-        }
 
-        // when
-        runBlocking { cut.loadMovieDetails(DataFixtures.getMovie().id).first() }
+            // when
+            cut.loadMovieDetails(DataFixtures.getMovie().id).first()
 
-        // then
-        runBlocking {
+            // then
             verify(movieApi, times(1)).fetchMovieDetails(DataFixtures.getMovie().id)
         }
     }
@@ -79,15 +78,17 @@ internal class MovieDetailsRepositoryImplTest{
         runBlocking {
             Mockito.`when`(movieLocalDS.getMovie(DataFixtures.getMovie().id))
                 .thenAnswer { DataFixtures.getMovie() }
-        }
 
-        // when
-        runBlocking { cut.loadMovieDetails(DataFixtures.getMovie().id) }
+            // when
+            cut.loadMovieDetails(DataFixtures.getMovie().id)
 
-        // then
-        runBlocking {
+            // then
+
             verify(movieApi, times(0)).fetchMovieDetails(DataFixtures.getMovie().id)
+
         }
+
+
     }
 
     @Test
@@ -96,13 +97,15 @@ internal class MovieDetailsRepositoryImplTest{
         runBlocking {
             Mockito.`when`(movieLocalDS.getMovie(DataFixtures.getMovie().id))
                 .thenAnswer { DataFixtures.getMovie() }
+
+            // when
+            val result = cut.loadMovieDetails(DataFixtures.getMovie().id).first()
+
+            // then
+            result shouldBeEqualTo DataFixtures.getMovieDomain()
         }
 
-        // when
-        val result = runBlocking { cut.loadMovieDetails(DataFixtures.getMovie().id).first() }
 
-        // then
-        result shouldBeEqualTo DataFixtures.getMovieDomain()
     }
 
     @Test
@@ -114,14 +117,16 @@ internal class MovieDetailsRepositoryImplTest{
 
             Mockito.`when`(movieApi.fetchMovieDetails(DataFixtures.getMovie().id))
                 .thenAnswer { DataFixtures.getMovieResponse() }
+
+            // when
+            val result = cut.loadMovieDetails(DataFixtures.getMovie().id).first()
+
+            // then
+            runBlocking {
+                result shouldBeEqualTo DataFixtures.getMovieDomain()
+            }
         }
 
-        // when
-        val result = runBlocking { cut.loadMovieDetails(DataFixtures.getMovie().id).first() }
 
-        // then
-        runBlocking {
-            result shouldBeEqualTo DataFixtures.getMovieDomain()
-        }
     }
 }

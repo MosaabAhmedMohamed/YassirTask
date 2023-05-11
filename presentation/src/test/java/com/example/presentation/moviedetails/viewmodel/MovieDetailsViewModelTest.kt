@@ -54,18 +54,17 @@ class MovieDetailsViewModelTest {
         runBlocking {
             Mockito.`when`(getMovieDetailsUseCase.loadMovieDetails(movieId))
                 .thenAnswer { flowOf(DataFixtures.getMovieDomain()) }
-        }
 
-        // when
-        runBlocking { cut.init(movieId) }
+            // when
+            cut.init(movieId)
 
-        // verify
-        runBlocking {
+            // verify
+
             verify(getMovieDetailsUseCase, times(1)).loadMovieDetails(movieId)
 
             cut.viewState.value.movie shouldBeEqualTo DataFixtures.getMovieUi()
-        }
 
+        }
     }
 
     @Test
@@ -73,11 +72,10 @@ class MovieDetailsViewModelTest {
         // given
         val movieId = null
 
-        // when
-        runBlocking { cut.init(movieId) }
-
         // verify
         runBlocking {
+            // when
+            cut.init(movieId)
             verify(getMovieDetailsUseCase, times(0)).loadMovieDetails(0)
 
             cut.viewState.value.movie shouldBeEqualTo null
@@ -88,16 +86,17 @@ class MovieDetailsViewModelTest {
     fun `loadMovieDetails return Movie success`() {
         // given
         val movieId = 10L
+
         runBlocking {
             Mockito.`when`(getMovieDetailsUseCase.loadMovieDetails(movieId))
                 .thenAnswer { flowOf(DataFixtures.getMovieDomain()) }
+
+            // when
+            cut.init(movieId)
+
+            // then
+            cut.viewState.value.movie shouldBeEqualTo DataFixtures.getMovieUi()
         }
-
-        // when
-       runBlocking { cut.init(movieId) }
-
-        // then
-        cut.viewState.value.movie  shouldBeEqualTo DataFixtures.getMovieUi()
     }
 
     @Test
@@ -108,15 +107,13 @@ class MovieDetailsViewModelTest {
         runBlocking {
             Mockito.`when`(getMovieDetailsUseCase.loadMovieDetails(movieId = movieId))
                 .thenAnswer { throw NullPointerException() }
-        }
 
-        // when
-        runBlocking { cut.init(movieId)}
+            // when
+            cut.init(movieId)
 
-        // then
-        runBlocking {
+            // then
             runBlocking {
-                verify(globalState, times(1)).error("java.lang.NullPointerException",true)
+                verify(globalState, times(1)).error("java.lang.NullPointerException", true)
 
                 cut.viewState.value.movie shouldBeEqualTo null
             }

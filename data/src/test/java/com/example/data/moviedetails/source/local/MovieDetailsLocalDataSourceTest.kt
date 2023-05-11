@@ -32,12 +32,14 @@ internal class MovieDetailsLocalDataSourceTest {
     @Test
     fun `getMovie verify dao is called`() {
         // when
-        runBlocking { cut.getMovie(DataFixtures.getMovie().id) }
-
-        // verify
         runBlocking {
+            cut.getMovie(DataFixtures.getMovie().id)
+
+            // verify
+
             verify(dao, times(1)).getMovie(DataFixtures.getMovie().id)
         }
+
     }
 
     @Test
@@ -46,13 +48,13 @@ internal class MovieDetailsLocalDataSourceTest {
         runBlocking {
             Mockito.`when`(dao.getMovie(DataFixtures.getMovie().id))
                 .thenAnswer { DataFixtures.getMovie() }
+
+            // when
+            val result = cut.getMovie(DataFixtures.getMovie().id)
+
+            // then
+            result shouldBeEqualTo DataFixtures.getMovie()
         }
-
-        // when
-        val result = runBlocking { cut.getMovie(DataFixtures.getMovie().id) }
-
-        // then
-        result shouldBeEqualTo DataFixtures.getMovie()
     }
 
     @Test
@@ -61,33 +63,37 @@ internal class MovieDetailsLocalDataSourceTest {
         runBlocking {
             Mockito.`when`(dao.getMovie(DataFixtures.getMovie().id))
                 .thenAnswer { null }
+
+            // when
+            val result = cut.getMovie(DataFixtures.getMovie().id)
+
+            // then
+            result shouldBeEqualTo null
         }
 
-        // when
-        val result = runBlocking { cut.getMovie(DataFixtures.getMovie().id) }
 
-        // then
-        result shouldBeEqualTo null
     }
 
     @Test
     fun `insertMovie verify dao is called`() {
         // when
-        runBlocking { cut.insertMovie(DataFixtures.getMovie()) }
-
-        // verify
         runBlocking {
+            cut.insertMovie(DataFixtures.getMovie())
+
+            // verify
+
             verify(dao, times(1)).insertMovie(DataFixtures.getMovie())
         }
+
+
     }
 
     @Test
     fun `deleteAllMovies verify dao is called`() {
         // when
-        runBlocking { cut.deleteAllMovies() }
-
-        // verify
         runBlocking {
+            cut.deleteAllMovies()
+            // verify
             verify(dao, times(1)).deleteAllMovies()
         }
     }
