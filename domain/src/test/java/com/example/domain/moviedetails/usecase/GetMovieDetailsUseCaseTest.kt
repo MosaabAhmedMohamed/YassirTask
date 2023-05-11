@@ -38,13 +38,11 @@ class GetMovieDetailsUseCaseTest {
         runBlocking {
             Mockito.`when`(movieDetailsRepository.loadMovieDetails(movieId))
                 .thenAnswer { DataFixtures.getMovieDomain() }
-        }
 
-        // when
-        runBlocking { cut.loadMovieDetails(movieId) }
+            // when
+            cut.loadMovieDetails(movieId)
 
-        // verify
-        runBlocking {
+            // verify
             verify(movieDetailsRepository, times(1)).loadMovieDetails(movieId)
         }
     }
@@ -56,13 +54,13 @@ class GetMovieDetailsUseCaseTest {
         runBlocking {
             Mockito.`when`(movieDetailsRepository.loadMovieDetails(movieId))
                 .thenAnswer { flowOf(DataFixtures.getMovieDomain()) }
+
+            // when
+            val result = cut.loadMovieDetails(movieId).first()
+
+            // then
+            result shouldBeEqualTo DataFixtures.getMovieDomain()
         }
-
-        // when
-        val result = runBlocking { cut.loadMovieDetails(movieId).first() }
-
-        // then
-        result shouldBeEqualTo DataFixtures.getMovieDomain()
     }
 
     @Test
@@ -73,14 +71,14 @@ class GetMovieDetailsUseCaseTest {
         runBlocking {
             Mockito.`when`(movieDetailsRepository.loadMovieDetails(movieId = movieId))
                 .thenAnswer { flowOf(null) }
-        }
 
-        // when
-        val result = runBlocking { cut.loadMovieDetails(movieId).first() }
+            // when
+            val result = cut.loadMovieDetails(movieId).first()
 
-        // then
-        runBlocking {
-            result shouldBeEqualTo null
+            // then
+            runBlocking {
+                result shouldBeEqualTo null
+            }
         }
     }
 
