@@ -3,7 +3,7 @@
 A simple app that displays list of trending movies.
 
 ## Challenge description
-- Code sample for display list of trending movie and it's details. 
+- Code sample to display list of trending movies and it's details. 
 - App consists of 2 screens 1st is for movies list and 2nd is for movie details.
 - App load and cache the movies and it's details in local data storge.
 
