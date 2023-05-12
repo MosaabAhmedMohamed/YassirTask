@@ -6,11 +6,12 @@ import com.example.presentation.base.ViewSideEffect
 import com.example.presentation.base.ViewState
 import com.example.presentation.movies.model.MovieUiModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class MoviesContract {
 
     data class State(
-        val movies: Flow<PagingData<MovieUiModel>>? = null,
+        val movies: Flow<PagingData<MovieUiModel>> = flow { PagingData.empty<MovieUiModel>() },
         ) : ViewState
 
     sealed class Event : ViewEvent {

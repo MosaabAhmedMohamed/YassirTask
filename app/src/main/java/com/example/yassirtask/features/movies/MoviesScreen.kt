@@ -25,7 +25,6 @@ fun MoviesScreen(navigator: DestinationsNavigator,
         viewModel.effect.onEach { effect ->
             when (effect) {
                 is Effect.Navigation.ToMovieDetails -> {
-
                      navigator.navigate(MovieDetailsScreenDestination(movieId = effect.movieId))
                 }
             }

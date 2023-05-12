@@ -8,5 +8,12 @@
     <string name="refresh">Refresh</string>
     <string name="trending_movies">Trending Movies</string>
     <string name="trending_movies_desc">List of trending movies</string>
+    <string name="rating">Rating</string>
+    <string name="duration">Duration</string>
+    <string name="minutes">Minutes</string>
+    <string name="geners">Genre</string>
+    <string name="release_date">Release date</string>
+    <string name="movie_details">Movie Details</string>
+
 
 </resources>

@@ -1,20 +1,22 @@
 package com.example.yassirtask.features.moviedetails
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.moviedetails.model.MovieDetailsUiModel
 import com.example.yassirtask.composables.GrayRemoteImage
+import com.example.yassirtask.composables.KeyValueTV
 import com.example.yassirtask.theme.SmallRoundedCornerImage
 import com.example.yassirtask.theme.YassirTheme
+import com.example.yassirtask.R
 
 @Composable
 fun MovieDetail(
@@ -25,13 +27,11 @@ fun MovieDetail(
 
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .verticalScroll(scrollState)
             .padding(
-                start = 15.dp,
-                end = 15.dp,
-            ).scrollable(
-                state = scrollState,
-                orientation = Orientation.Vertical
+                start = 16.dp,
+                end = 16.dp,
             )
     ) {
 
@@ -52,18 +52,42 @@ fun MovieDetail(
             Column(
                 modifier = Modifier.padding(start = 12.dp)
             ) {
-                // Rating
-                MovieMeta(key = "Rating", value = movie.voteAverage.toString())
 
-                // Director
-                MovieMeta(
-                    key = "Duration",
-                    value = movie.runtime.toString().plus(" Minutes")
-                )
+                // Rating
+                movie.voteAverage?.let {
+                    KeyValueTV(
+                        key = stringResource(id = R.string.rating),
+                        value = movie.voteAverage.toString()
+                    )
+                }
+
+                // Duration
+                movie.runtime?.let {
+                    KeyValueTV(
+                        key = stringResource(id = R.string.duration),
+                        value = movie.runtime.toString()
+                            .plus(stringResource(id = R.string.minutes))
+                    )
+                }
+
+                // Release Date
+                movie.releaseDate?.let {
+                    KeyValueTV(
+                        key = stringResource(id = R.string.release_date),
+                        value = it
+                    )
+                }
 
                 // Genre
                 movie.genres?.joinToString(separator = ", ")
-                    ?.let { MovieMeta(key = "Genre", value = it) }
+                    ?.let {
+                        KeyValueTV(
+                            key = stringResource(
+                                id = R.string.geners
+                            ),
+                            value = it
+                        )
+                    }
             }
         }
 
@@ -91,31 +115,7 @@ fun MovieDetail(
                 color = YassirTheme.colors.middleGray,
             )
         }
-    }
-}
 
-
-@Composable
-fun MovieMeta(
-    modifier: Modifier = Modifier,
-    key: String,
-    value: String
-) {
-    Column(modifier = modifier) {
-        // Key
-        Text(
-            text = key,
-            style = YassirTheme.typography.poppinsRegular14,
-            color = YassirTheme.colors.middleGray.copy(alpha = 0.5f)
-        )
-
-        // Value
-        Text(
-            style = YassirTheme.typography.mencoBold16,
-            text = value
-        )
-
-        Spacer(modifier = Modifier.height(5.dp))
     }
 }
 
@@ -123,6 +123,6 @@ fun MovieMeta(
 @Composable
 fun MovieDetailPreview() {
     MovieDetail(
-            movie = MovieDetailsUiModel()
-        )
+        movie = MovieDetailsUiModel()
+    )
 }

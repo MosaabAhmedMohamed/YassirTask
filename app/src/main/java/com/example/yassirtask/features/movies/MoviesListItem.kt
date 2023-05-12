@@ -12,11 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.movies.model.MovieUiModel
+import com.example.yassirtask.R
 import com.example.yassirtask.composables.GrayRemoteImage
+import com.example.yassirtask.composables.KeyValueRowTV
 import com.example.yassirtask.composables.noRippleClickable
 import com.example.yassirtask.theme.SmallRoundedCornerCard
 import com.example.yassirtask.theme.SmallRoundedCornerImage
@@ -84,15 +87,11 @@ fun MoviesListItem(
                     )
                 }
 
-
-                // releaseDate text
+                // Release Date
                 movie.releaseDate?.let {
-                    Text(
-                        text = it,
-                        style = YassirTheme.typography.poppinsRegular14,
-                        color = YassirTheme.colors.black,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                    KeyValueRowTV(
+                        key = stringResource(id = R.string.release_date),
+                        value = it
                     )
                 }
             }
@@ -107,9 +106,6 @@ fun MoviesListItem(
                     .padding(end = YassirTheme.spacing.m),
             )
         }
-
-
-
     }
 }
 

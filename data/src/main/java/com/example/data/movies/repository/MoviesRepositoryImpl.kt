@@ -21,6 +21,7 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun loadMovies() =
         Pager(
             config = PagingConfig(
+                enablePlaceholders = false,
                 pageSize = PAGE_SIZE,
                 prefetchDistance = 10,
                 initialLoadSize = PAGE_SIZE,

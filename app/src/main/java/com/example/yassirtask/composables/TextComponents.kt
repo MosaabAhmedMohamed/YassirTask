@@ -513,3 +513,60 @@ fun TextH1(
         style = style
     )
 }
+
+@Composable
+fun KeyValueTV(
+    modifier: Modifier = Modifier,
+    key: String,
+    value: String,
+    maxLines: Int = Int.MAX_VALUE,
+
+    ) {
+    Column(modifier = modifier) {
+        // Key
+        Text(
+            text = key,
+            style = YassirTheme.typography.poppinsRegular14,
+            color = YassirTheme.colors.middleGray.copy(alpha = 0.5f)
+        )
+
+        // Value
+        Text(
+            style = YassirTheme.typography.mencoBold16,
+            text = value,
+            color = YassirTheme.colors.black,
+            maxLines = maxLines
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+    }
+}
+
+
+@Composable
+fun KeyValueRowTV(
+    modifier: Modifier = Modifier,
+    key: String,
+    value: String
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        // Key
+        Text(
+            text = key,
+            style = YassirTheme.typography.poppinsRegular14,
+            color = YassirTheme.colors.blackAlpha44,
+            modifier = Modifier.wrapContentWidth()
+        )
+
+        // Value
+        Text(
+            style = YassirTheme.typography.mencoBold16,
+            text = value,
+            color = YassirTheme.colors.black,
+            modifier = Modifier.padding(start = 4.dp).wrapContentWidth()
+        )
+    }
+}

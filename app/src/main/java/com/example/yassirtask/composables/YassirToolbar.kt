@@ -26,7 +26,7 @@ fun YassirToolbar(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 20.dp, bottom = 12.dp, start = 24.dp, end = 24.dp)
+            .padding(top = 8.dp, bottom = 12.dp, start = 24.dp, end = 24.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

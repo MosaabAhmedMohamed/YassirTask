@@ -21,7 +21,7 @@ fun PagingState(
     loadState: LoadStates?,
     itemCount: Int,
     onRefresh: () -> Unit,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         if (loadState?.refresh == LoadState.Loading) {

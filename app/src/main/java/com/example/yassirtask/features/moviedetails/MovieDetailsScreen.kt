@@ -1,6 +1,5 @@
 package com.example.yassirtask.features.moviedetails
 
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,7 +10,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.onEach
 
-
 @Destination
 @Composable
 fun MovieDetailsScreen(
@@ -19,7 +17,6 @@ fun MovieDetailsScreen(
     movieId: Long? = null,
     viewModel: MovieDetailsViewModel = hiltViewModel()
 ) {
-    val scaffoldState = rememberScaffoldState()
 
     // Handle side effects
     LaunchedEffect(SIDE_EFFECTS_KEY) {
