@@ -25,7 +25,7 @@ used different branches to implement and refactor the features to avoid conflict
 
 
 ## Specifications
-- portrait and landscape.
+- Portrait and landscape.
 - Clean architecture.
 - MVI
 - Coroutines
