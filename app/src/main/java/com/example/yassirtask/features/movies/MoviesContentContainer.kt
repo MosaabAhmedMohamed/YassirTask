@@ -11,6 +11,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.movies.contract.MoviesContract.State
 import com.example.presentation.movies.contract.MoviesContract.Event
 import com.example.yassirtask.R
+import com.example.yassirtask.composables.PagingState
 import com.example.yassirtask.theme.YassirTheme
 
 @Composable
@@ -30,39 +31,52 @@ fun MoviesContentContainer(
 
         // Space
         Spacer(modifier = Modifier.height(16.dp))
+        val moviesState = state.movies.collectAsLazyPagingItems()
 
-        // Movies list
-        MoviesList(
-            movies = state.movies?.collectAsLazyPagingItems(),
-            onItemClick = { _, item ->
-                onEvent(Event.OnItemClick(item))
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            prefixContent = {
-                // Subtitle text
+        when(moviesState.itemCount){
+            0-> {
                 Column {
-                    Text(
-                        text = stringResource(id = R.string.trending_movies),
-                        style = YassirTheme.typography.poppinsSemiBold16,
-                        color = YassirTheme.colors.charcoalGrey,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .padding(top = 4.dp)
-                            .fillMaxWidth()
-                    )
-
-                    Text(
-                        text = stringResource(id = R.string.trending_movies_desc),
-                        style = YassirTheme.typography.poppinsRegular14,
-                        color = YassirTheme.colors.charcoalGrey,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .fillMaxWidth()
+                    PagingState(
+                        loadState = moviesState.loadState.mediator,
+                        itemCount = moviesState.itemCount,
+                        onRefresh = { moviesState.refresh() }
                     )
                 }
+            }else->{
+            // Movies list
+            MoviesList(
+                movies = moviesState,
+                onItemClick = { _, item ->
+                    onEvent(Event.OnItemClick(item))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                prefixContent = {
+                    // Subtitle text
+                    Column {
+                        Text(
+                            text = stringResource(id = R.string.trending_movies),
+                            style = YassirTheme.typography.poppinsSemiBold16,
+                            color = YassirTheme.colors.charcoalGrey,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .padding(top = 4.dp)
+                                .fillMaxWidth()
+                        )
+
+                        Text(
+                            text = stringResource(id = R.string.trending_movies_desc),
+                            style = YassirTheme.typography.poppinsRegular14,
+                            color = YassirTheme.colors.charcoalGrey,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
+                    }
+                }
+            )
             }
-        )
+        }
     }
 }

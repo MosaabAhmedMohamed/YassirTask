@@ -13,7 +13,7 @@ data class MovieDetailsDomain(
     val runtime: Long? = null,
     val posterPath: String? = null,
     val releaseDate: String? = null,
-    val voteAverage: Any? = null,
+    val voteAverage: Float? = null,
     val tagline: String? = null,
     val adult: Boolean? = null,
     val homepage: String? = null,

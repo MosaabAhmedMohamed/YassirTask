@@ -1,5 +1,7 @@
 package com.example.presentation.movies.viewmodel
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.core.util.DispatcherProvider
 import com.example.domain.movies.usecase.GetMoviesUseCase
@@ -20,28 +22,34 @@ class MoviesViewModel @Inject constructor(
     globalState: IGlobalState,
     private val getMoviesUseCase: GetMoviesUseCase,
     private val dispatchers: DispatcherProvider,
-    ) : BaseViewModel<Event,
-       State,
-       Effect>(globalState,dispatchers)  {
+) : BaseViewModel<Event,
+        State,
+        Effect>(globalState, dispatchers) {
+
+    private var isInitialized = false
 
     suspend fun loadMovies() {
-        executeCatching({
-            val flow = getMoviesUseCase.loadMovies()
-                .flowOn(dispatchers.io)
-                .map { it.map { it.mapToUi() } }
+        if (isInitialized) return
 
-            setState { copy(movies = flow ) }
-        })
+        val flow = getMoviesUseCase.loadMovies()
+            .flowOn(dispatchers.io)
+            .map { it.map { it.mapToUi() } }
+            .cachedIn(viewModelScope)
+
+        setState { copy(movies = flow) }
+
+        // Update isInitialized flag
+        isInitialized = true
     }
 
     override fun setInitialState() = State()
 
-    override fun handleEvents(event: Event) = when(event){
+    override fun handleEvents(event: Event) = when (event) {
         is Event.OnItemClick -> handleMovieItemClick(event.movieUiModel)
     }
 
     private fun handleMovieItemClick(movieUiModel: MovieUiModel) {
-        movieUiModel.id?:return
+        movieUiModel.id ?: return
 
         // Then navigate to contractor profile
         setEffect { Effect.Navigation.ToMovieDetails(movieUiModel.id) }
