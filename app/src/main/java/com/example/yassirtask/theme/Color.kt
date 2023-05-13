@@ -1,7 +1,11 @@
 package com.example.yassirtask.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
@@ -28,8 +32,16 @@ val LightColorPalette =
         background = CozoGrey
     )
 
+val darkColorPalette =
+    darkColors(
+        primary = GHOST_WHITE,
+        primaryVariant = GHOST_WHITE,
+        secondary = CozoBlack,
+        background = CozoBlack
+    )
+
 @Immutable
-data class YassirColors(
+open class YassirColors(
     val primaryButtonColor: Color = CharcoalGrey,
     val primaryDisabledColor: Color = TransCharcoalGrey,
     val charcoalGrey: Color = CharcoalGrey,
@@ -65,6 +77,28 @@ data class YassirColors(
     val yellow: Color = Color(0xFFFEBB12),
     val gray61: Color = Color(0xFF9C9C9C),
     val spanishGray: Color = Color(0xFF9C9C9C),
+    val textPrimary: Color = GHOST_WHITE,
+    val textPrimaryVariant: Color = GHOST_WHITE,
+    val textSecondary: Color = CozoBlack,
+    val textSecondaryVariant: Color = CozoBlack,
 )
 
-val LocalYassirColors = staticCompositionLocalOf { YassirColors() }
+
+@ReadOnlyComposable
+@Composable
+fun localYassirColors(darkTheme: Boolean = isSystemInDarkTheme()) = staticCompositionLocalOf {
+    if (darkTheme)
+        YassirColors(
+            textPrimary = Color.White,
+            textPrimaryVariant = GHOST_WHITE,
+            textSecondary = CozoGrey,
+            textSecondaryVariant = StrokeGrey,
+        )
+    else
+        YassirColors(
+            textPrimary = Color.Black,
+            textPrimaryVariant = CozoCardBlack,
+            textSecondary = CharcoalGrey,
+            textSecondaryVariant = StrokeGrey,
+        )
+}
