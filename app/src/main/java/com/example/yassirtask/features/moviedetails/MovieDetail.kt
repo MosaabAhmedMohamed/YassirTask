@@ -100,7 +100,7 @@ fun MovieDetail(
                     bottom = 4.dp
                 ),
                 style = YassirTheme.typography.mencoBold18,
-                color = YassirTheme.colors.black,
+                color = YassirTheme.colors.textPrimary,
             )
         }
 
@@ -112,7 +112,7 @@ fun MovieDetail(
                     bottom = 10.dp
                 ),
                 style = YassirTheme.typography.poppinsRegular14,
-                color = YassirTheme.colors.middleGray,
+                color = YassirTheme.colors.textSecondary,
             )
         }
 

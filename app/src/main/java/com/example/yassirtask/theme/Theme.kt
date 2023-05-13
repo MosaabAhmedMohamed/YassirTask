@@ -12,7 +12,7 @@ object YassirTheme {
     val colors
         @Composable
         @ReadOnlyComposable
-        get() = LocalYassirColors.current
+        get() = localYassirColors(isSystemInDarkTheme()).current
 
     val typography
         @Composable
@@ -35,10 +35,20 @@ fun YassirComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colors = LightColorPalette,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+
+    if (darkTheme)
+        MaterialTheme(
+            darkColorPalette,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    else
+        MaterialTheme(
+            colors = LightColorPalette,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+
 }

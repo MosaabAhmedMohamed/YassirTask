@@ -2,11 +2,13 @@ package com.example.yassirtask.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,6 +40,7 @@ fun YassirToolbar(
                 Image(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = null,
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
                     modifier = Modifier
                         .size(36.dp)
                         .padding(top = 18.dp, end = 18.dp)
