@@ -8,6 +8,8 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+
+
 android {
     compileSdkVersion(Sdk.COMPILE_SDK_VERSION)
 
@@ -27,6 +29,8 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+
 
     buildTypes {
         getByName("debug") {
@@ -71,6 +75,7 @@ dependencies {
     implementation(project(":presentation"))
 
     implementation(kotlin("stdlib-jdk7"))
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_RULES)
@@ -91,7 +96,7 @@ dependencies {
     implementation(Navigation.DESTINATION)
     ksp(Navigation.DESTINATION_KSP)
 
-    // Navigation
+    // RETROFIT
     implementation(RETROFIT.RETROFIT)
     implementation(RETROFIT.RETROFIT_COROU_ADAPTER)
     implementation(RETROFIT.RETROFIT_JSON_CONVERTER)
@@ -110,6 +115,8 @@ dependencies {
 
     implementation("io.coil-kt:coil-compose:2.2.0")
 
-
+    //Paging 3
+    implementation("androidx.paging:paging-runtime:3.1.1")
+    implementation("androidx.paging:paging-compose:1.0.0-alpha19")
 
 }

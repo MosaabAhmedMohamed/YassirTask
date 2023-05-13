@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Yassir Task</string>
+
+    <string name="error">Error</string>
+    <string name="got_it">Got it</string>
+    <string name="success">Success</string>
+    <string name="refresh_loading">Refresh Loading</string>
+    <string name="refresh">Refresh</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="trending_movies_desc">List of trending movies</string>
+    <string name="rating">Rating</string>
+    <string name="duration">Duration</string>
+    <string name="minutes">Minutes</string>
+    <string name="geners">Genre</string>
+    <string name="release_date">Release date</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="internet_error">No internet connection, please check your connection and try again.</string>
+    <string name="timeout_error">Looks like the server is taking too long to respond, please try again later.</string>
+    <string name="app_error">The application has encountered an unknown error, Please try again later.</string>
+
+
 </resources>

@@ -5,11 +5,15 @@ plugins {
 
 android {
     namespace = "com.example.core"
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
+
+        buildConfigField("String", "API_TOKEN", "\"c9856d0cb57c3f14bf75bdc6c063b8f3\"")
+        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+        buildConfigField("String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w200/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -41,4 +45,10 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // RETROFIT
+    implementation(RETROFIT.RETROFIT)
+    implementation(RETROFIT.RETROFIT_JSON_CONVERTER)
+    implementation(Logging.LOGGING)
+
 }
