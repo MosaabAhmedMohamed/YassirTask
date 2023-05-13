@@ -28,8 +28,9 @@ used different branches to implement and refactor the features to avoid conflict
 - Dark Mode.
 
 <img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/bee2ab24-f3fd-47f0-befb-2e5cf1600042" width="300">|
-<img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/a795324d-6cb7-4498-845d-70a852a45c07" width="300">|
+<img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/eb7db795-ef4b-4f57-a251-5e667b337bb1" width="300">|
 <img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/afc6ea3e-aa16-409c-8b06-fdf1d9e14c67" width="300">|
+
 
 
 ## Download
