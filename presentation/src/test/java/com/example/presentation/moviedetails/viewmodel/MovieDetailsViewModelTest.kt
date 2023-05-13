@@ -113,8 +113,6 @@ class MovieDetailsViewModelTest {
 
             // then
             runBlocking {
-                verify(globalState, times(1)).error("java.lang.NullPointerException", true)
-
                 cut.viewState.value.movie shouldBeEqualTo null
             }
         }

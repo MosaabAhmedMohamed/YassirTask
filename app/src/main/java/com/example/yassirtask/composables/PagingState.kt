@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
+import com.example.core.util.mapToAppException
 import com.example.yassirtask.R
 import com.example.yassirtask.theme.YassirTheme
 
@@ -78,12 +78,9 @@ fun PagingState(
                     )
                 }
 
-                Text(
-                    modifier = Modifier.padding(8.dp),
-                    text = error.message ?: error.toString(),
-                    color = YassirTheme.colors.textPrimaryVariant,
-                    textAlign = TextAlign.Center,
-                )
+                ShowError(error = error.mapToAppException())
+
+                Spacer(modifier = Modifier.padding(YassirTheme.spacing.l))
 
                 FilledCharcoalGreyButton(
                     text = stringResource(id = R.string.refresh),

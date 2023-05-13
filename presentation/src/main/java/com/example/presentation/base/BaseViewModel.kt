@@ -12,9 +12,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import org.apache.http.conn.ConnectTimeoutException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 
 abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : ViewSideEffect>(
@@ -73,27 +70,11 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
                 if (withLoading) globalState.loading(false)
             } catch (throwable: Throwable) {
                 if (BuildConfig.DEBUG) throwable.printStackTrace()
-                val error = when (throwable) {
-                    is AppException -> {
-                        throwable
-                    }
-                    is UnknownHostException -> {
-                        NoConnectionException()
-                    }
-                    is SocketTimeoutException,
-                    is java.net.SocketTimeoutException,
-                        // is HttpRequestTimeoutException,
-                    is ConnectTimeoutException -> {
-                        TimeOutException()
-                    }
-                    else -> {
-                        NetworkErrorMapper().mapThrowable(throwable)
-                    }
-                }
+                val error = throwable.mapToAppException()
                 globalState.error(error, withLoading)
                 onError?.invoke(throwable, error)
             } catch (e: Exception) {
-                val error = NetworkErrorMapper().mapThrowable(e)
+                val error = mapThrowable(e)
                 globalState.error(error, withLoading)
                 onError?.invoke(e, error)
             }
