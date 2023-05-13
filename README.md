@@ -11,6 +11,7 @@ A simple app that displays list of trending movies.
 ## What i have done
 I started working on it by migrating gradle files to kotlin dsl then modeling the project to clean architecture ( core, app, data, domain, presentation) modules ,
 applied clean architecture with MVI design pattern used Coroutines with Flow to handle heavy operations on the background thread,
+Jetpack Compose for building UI,
 Dagger 2 And Hilt for dependency injection, 
 enabled proguard for obfuscating and securing the code base,
 unit testing the database and all features,
