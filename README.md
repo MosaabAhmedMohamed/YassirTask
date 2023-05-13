@@ -22,7 +22,7 @@ used different branches to implement and refactor the features to avoid conflict
 - Light Mode.
 
 <img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/3a4205a4-dc82-4255-92fb-2d575a4fe5fd" width="300">|
-<img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/cf4a7826-eddb-49c5-82fd-ea132301a6df" width="300">|
+<img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/ca378419-a0fd-46d1-9358-82d2de7ca222" width="300">|
 <img src="https://github.com/MosaabAhmedMohamed/YassirTask/assets/32736722/f0720743-5a57-4552-9539-3a541a3c2f2b" width="300">
 
 - Dark Mode.
