@@ -70,7 +70,7 @@ fun MoviesListItem(
                     Text(
                         text = it,
                         style = YassirTheme.typography.mencoBold16,
-                        color = YassirTheme.colors.black,
+                        color = YassirTheme.colors.textPrimary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -100,7 +100,7 @@ fun MoviesListItem(
             Image(
                 imageVector = Icons.Filled.ArrowForward,
                 contentDescription = null,
-                colorFilter = ColorFilter.tint(YassirTheme.colors.stroke),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primary),
                 modifier = Modifier
                     .height(14.dp)
                     .padding(end = YassirTheme.spacing.m),

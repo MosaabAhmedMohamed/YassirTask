@@ -35,6 +35,7 @@ fun MoviesContentContainer(
 
         when(moviesState.itemCount){
             0-> {
+                // Handle Loading error state
                 Column {
                     PagingState(
                         loadState = moviesState.loadState.mediator,
@@ -58,7 +59,7 @@ fun MoviesContentContainer(
                         Text(
                             text = stringResource(id = R.string.trending_movies),
                             style = YassirTheme.typography.poppinsSemiBold16,
-                            color = YassirTheme.colors.charcoalGrey,
+                            color = YassirTheme.colors.textPrimary,
                             textAlign = TextAlign.Start,
                             modifier = Modifier
                                 .padding(top = 4.dp)
@@ -68,7 +69,7 @@ fun MoviesContentContainer(
                         Text(
                             text = stringResource(id = R.string.trending_movies_desc),
                             style = YassirTheme.typography.poppinsRegular14,
-                            color = YassirTheme.colors.charcoalGrey,
+                            color = YassirTheme.colors.textPrimary,
                             textAlign = TextAlign.Start,
                             modifier = Modifier
                                 .fillMaxWidth()

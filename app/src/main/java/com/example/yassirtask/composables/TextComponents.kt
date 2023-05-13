@@ -47,7 +47,7 @@ fun ScreenTitle(
     maxLines: Int = Int.MAX_VALUE,
     textStyle: TextStyle = YassirTheme.typography.h3Bold,
     textAlign: TextAlign = TextAlign.Center,
-    color: Color = YassirTheme.colors.primaryText
+    color: Color = YassirTheme.colors.textPrimary
 ) {
     Text(
         text = text,
@@ -527,14 +527,14 @@ fun KeyValueTV(
         Text(
             text = key,
             style = YassirTheme.typography.poppinsRegular14,
-            color = YassirTheme.colors.middleGray.copy(alpha = 0.5f)
+            color = YassirTheme.colors.textSecondary.copy(alpha = 0.5f)
         )
 
         // Value
         Text(
             style = YassirTheme.typography.mencoBold16,
             text = value,
-            color = YassirTheme.colors.black,
+            color = YassirTheme.colors.textPrimary,
             maxLines = maxLines
         )
 
@@ -557,16 +557,17 @@ fun KeyValueRowTV(
         Text(
             text = key,
             style = YassirTheme.typography.poppinsRegular14,
-            color = YassirTheme.colors.blackAlpha44,
-            modifier = Modifier.wrapContentWidth()
+            color = YassirTheme.colors.textPrimaryVariant,
+            modifier = Modifier.padding(top = 2.dp).wrapContentWidth()
         )
 
         // Value
         Text(
             style = YassirTheme.typography.mencoBold16,
             text = value,
-            color = YassirTheme.colors.black,
-            modifier = Modifier.padding(start = 4.dp).wrapContentWidth()
+            color = YassirTheme.colors.textPrimary,
+            modifier = Modifier.padding(start = 4.dp)
+                .wrapContentWidth()
         )
     }
 }
