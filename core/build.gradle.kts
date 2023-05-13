@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "com.example.core"
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
 
         buildConfigField("String", "API_TOKEN", "\"c9856d0cb57c3f14bf75bdc6c063b8f3\"")
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")

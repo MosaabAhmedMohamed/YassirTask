@@ -10,8 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.core.util.*
+import com.example.yassirtask.R
 import com.example.yassirtask.theme.YassirTheme
 
 @Composable
@@ -79,4 +82,41 @@ fun Error(
         )
     }
 
+}
+
+
+@Composable
+fun ShowError(error : AppException){
+    when (error) {
+        is NoConnectionException -> {
+            Error(
+                title = stringResource(R.string.error),
+                body = stringResource(id = R.string.internet_error),
+            )
+        }
+        is TimeOutException -> {
+            Error(
+                title = stringResource(R.string.error),
+                body = stringResource(id = R.string.timeout_error),
+            )
+        }
+        is UnAuthorizedException -> {
+            Error(
+                title = stringResource(R.string.error),
+                body = stringResource(id = R.string.app_error),
+            )
+        }
+        is UnexpectedException -> {
+            Error(
+                title = stringResource(R.string.error),
+                body = stringResource(id = R.string.app_error),
+            )
+        }
+        else -> {
+            Error(
+                title = stringResource(R.string.error),
+                body = stringResource(id = R.string.app_error),
+            )
+        }
+    }
 }

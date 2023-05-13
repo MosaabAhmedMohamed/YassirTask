@@ -35,17 +35,17 @@ class NetworkErrorMapper {
     }
 }
 open class AppException(
-    val errorCode: Int,
-    val errorMessage: String,
+    val errorCode: Int= 0 ,
+    val errorMessage: String? = null,
     val errorBody: String? = null,
     val throwable: Throwable? = null
 ) : Throwable(errorMessage)
 
 
-class NoConnectionException(code: Int, message: String) :
+class NoConnectionException(code: Int = 0 , message: String? = null) :
     AppException(errorCode = code, errorMessage = message)
 
-class TimeOutException(code: Int, message: String) :
+class TimeOutException(code: Int= 0 , message: String? = null) :
     AppException(errorCode = code, errorMessage = message)
 
 class UnexpectedException(code: Int, message: String, throwable: Throwable) :

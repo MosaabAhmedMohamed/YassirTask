@@ -5,9 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.util.AppException
-import com.example.core.util.DispatcherProvider
-import com.example.core.util.NetworkErrorMapper
+import com.example.core.util.*
 import com.example.presentation.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
@@ -65,7 +63,7 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
 
     fun <T> executeCatching(
         block: suspend () -> T,
-        onError: ((Throwable, String) -> Unit)? = null,
+        onError: ((Throwable, AppException) -> Unit)? = null,
         withLoading: Boolean = true
     ) {
         viewModelScope.launch(dispatchers.io) {
@@ -73,37 +71,31 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
                 if (withLoading) globalState.loading(true)
                 block.invoke()
                 if (withLoading) globalState.loading(false)
-            } catch (e: kotlin.coroutines.cancellation.CancellationException) {
-                onError?.invoke(e, "")
-            } catch (e: java.util.concurrent.CancellationException) {
-                onError?.invoke(e, "")
-            } catch (e: kotlinx.coroutines.CancellationException) {
-                onError?.invoke(e, "")
             } catch (throwable: Throwable) {
                 if (BuildConfig.DEBUG) throwable.printStackTrace()
-                val errorMessage = when (throwable) {
+                val error = when (throwable) {
                     is AppException -> {
-                        throwable.errorMessage
+                        throwable
                     }
                     is UnknownHostException -> {
-                        "No internet connection, please check your connection and try again."
+                        NoConnectionException()
                     }
                     is SocketTimeoutException,
                     is java.net.SocketTimeoutException,
                         // is HttpRequestTimeoutException,
                     is ConnectTimeoutException -> {
-                        "Looks like the server is taking too long to respond, please try again later."
+                        TimeOutException()
                     }
                     else -> {
-                        NetworkErrorMapper().mapThrowable(throwable).errorMessage
+                        NetworkErrorMapper().mapThrowable(throwable)
                     }
                 }
-                globalState.error(errorMessage, withLoading)
-                onError?.invoke(throwable, errorMessage)
+                globalState.error(error, withLoading)
+                onError?.invoke(throwable, error)
             } catch (e: Exception) {
-                val errorMessage = NetworkErrorMapper().mapThrowable(e).errorMessage
-                globalState.error(errorMessage, withLoading)
-                onError?.invoke(e, errorMessage)
+                val error = NetworkErrorMapper().mapThrowable(e)
+                globalState.error(error, withLoading)
+                onError?.invoke(e, error)
             }
         }
     }
@@ -129,21 +121,21 @@ abstract class BaseViewModel<Event : ViewEvent, UiState : ViewState, Effect : Vi
 
 interface IGlobalState {
     val loadingState: State<Boolean>
-    val errorState: State<String?>
+    val errorState: State<AppException?>
     val successState: State<String?>
     val appLoaded: State<Boolean>
 
     fun idle()
     fun loading(show: Boolean)
-    fun error(msg: String, hideLoading: Boolean = true)
-    fun error(msgs: List<String>, hideLoading: Boolean = true)
+    fun error(error: AppException, hideLoading: Boolean = true)
+    fun error(msgs: List<AppException>, hideLoading: Boolean = true)
     fun success(msg: String, hideLoading: Boolean = true)
     fun appLoaded()
 }
 
 class GlobalState : IGlobalState {
     override val loadingState = mutableStateOf(false)
-    override val errorState = mutableStateOf<String?>(null)
+    override val errorState = mutableStateOf<AppException?>(null)
     override val successState = mutableStateOf<String?>(null)
     override val appLoaded = mutableStateOf(false)
 
@@ -160,16 +152,16 @@ class GlobalState : IGlobalState {
         loadingState.value = show
     }
 
-    override fun error(msg: String, hideLoading: Boolean) {
+    override fun error(error: AppException, hideLoading: Boolean) {
         if (hideLoading) loadingState.value = false
         successState.value = null
-        errorState.value = msg
+        errorState.value = error
     }
 
-    override fun error(msgs: List<String>, hideLoading: Boolean) {
+    override fun error(msgs: List<AppException>, hideLoading: Boolean) {
         if (hideLoading) loadingState.value = false
         successState.value = null
-        errorState.value = msgs.joinToString("\n")
+        errorState.value = msgs.last()
     }
 
     override fun success(msg: String, hideLoading: Boolean) {
