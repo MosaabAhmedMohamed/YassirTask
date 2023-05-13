@@ -51,7 +51,10 @@ class MovieDetailsViewModel @Inject constructor(
 
 
     override fun handleEvents(event: Event) = when (event) {
-       Event.BackClick -> setEffect { Effect.Navigation.GoBack }
+       Event.BackClick -> setEffect {
+           globalState.idle()
+           Effect.Navigation.GoBack
+       }
     }
 
 }

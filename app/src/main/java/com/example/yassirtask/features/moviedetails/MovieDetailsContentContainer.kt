@@ -1,5 +1,6 @@
 package com.example.yassirtask.features.moviedetails
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -19,6 +20,11 @@ fun MovieDetailsContentContainer(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+
+        BackHandler(enabled = true){
+            onEvent(Event.BackClick)
+        }
+
         // Toolbar
         YassirToolbar(
             showBack = true,

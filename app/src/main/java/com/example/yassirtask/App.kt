@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 import com.example.presentation.base.IGlobalState
 import com.example.yassirtask.composables.DefaultMessageDialog
+import com.example.yassirtask.composables.Error
 import com.example.yassirtask.composables.Progress
 import com.example.yassirtask.features.NavGraphs
 import com.example.yassirtask.theme.YassirComposeTheme
@@ -35,16 +36,9 @@ fun App(globalState: IGlobalState) {
             }
 
             if (globalState.errorState.value != null) {
-                DefaultMessageDialog(
+                Error(
                     title = stringResource(R.string.error),
                     body = globalState.errorState.value!!,
-                    buttonText = stringResource(R.string.got_it),
-                    onNegative = {
-                        globalState.idle()
-                    },
-                    onPositive = {
-                        globalState.idle()
-                    }
                 )
             }
 

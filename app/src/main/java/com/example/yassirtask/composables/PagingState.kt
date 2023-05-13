@@ -33,7 +33,7 @@ fun PagingState(
                 Text(
                     modifier = Modifier.padding(8.dp),
                     style = YassirTheme.typography.mencoBold16,
-                    color = YassirTheme.colors.black,
+                    color = YassirTheme.colors.textPrimary,
                     text = stringResource(id = R.string.refresh_loading)
                 )
 
@@ -73,6 +73,7 @@ fun PagingState(
                     Icon(
                         modifier = Modifier.size(64.dp),
                         imageVector = Icons.Rounded.Warning,
+                        tint = MaterialTheme.colors.primary,
                         contentDescription = null
                     )
                 }
@@ -80,6 +81,7 @@ fun PagingState(
                 Text(
                     modifier = Modifier.padding(8.dp),
                     text = error.message ?: error.toString(),
+                    color = YassirTheme.colors.textPrimaryVariant,
                     textAlign = TextAlign.Center,
                 )
 
