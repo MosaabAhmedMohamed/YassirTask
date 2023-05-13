@@ -12,7 +12,7 @@ fun MovieDetailsResponse.mapToLocal(): MovieDetailsLocal {
         genres = genres.mapToLocal(),
         id = id,
         overview = overview,
-        voteAverage = voteAverage,
+        voteAverage = voteAverage?.round(),
         originalTitle = originalTitle,
         runtime = runtime,
         posterPath = posterPath,
@@ -20,6 +20,8 @@ fun MovieDetailsResponse.mapToLocal(): MovieDetailsLocal {
         tagline = tagline,
     )
 }
+
+fun Float.round(decimals: Int = 1): Float = "%.${decimals}f".format(this).toFloat()
 
 fun List<GenresItem>?.mapToLocal(): List<String> {
     return this?.filter { it.name != null }?.map { it.name?:"" }?: emptyList()
