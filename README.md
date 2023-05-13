@@ -51,6 +51,7 @@ used different branches to implement and refactor the features to avoid conflict
 - Dagger Hilt
 - Jetpack Compose
 - Modularization
+- Unit Test
 
 ## Languages, libraries and tools used
 
