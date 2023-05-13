@@ -13,7 +13,7 @@ I started working on it by migrating gradle files to kotlin dsl then modeling th
 applied clean architecture with MVI design pattern used Coroutines with Flow to handle heavy operations on the background thread,
 Dagger 2 And Hilt for dependency injection, 
 enabled proguard for obfuscating and securing the code base,
-unit testing the database and all the feature using (JUnit, Mockito, Robolectric),
+unit testing the database and all features,
 used different branches to implement and refactor the features to avoid conflicts.
 
 ## Screenshot
